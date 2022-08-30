@@ -5,6 +5,8 @@ import MovieComponent from "./components/MovieComponent";
 import MovieInfoComponent from "./components/MovieInfoComponent";
 import NotFound from "./components/NotFound";
 import './App.css';
+import logo from "./movie-icon.svg";
+import magnifier from './search-icon.svg';
 
 export const API_KEY = "6da9d44b";
 
@@ -106,11 +108,11 @@ function App() {
     <Container>
       <Header>
         <AppName>
-          <MovieImage src="../movie-icon.svg" />
+          <MovieImage src={logo}/>
           MovieBase
         </AppName>
         <SearchBox>
-          <SearchIcon src="./search-icon.svg" />
+          <SearchIcon src={magnifier} />
           <SearchInput
             placeholder="Search a Movie"
             value={searchQuery}
