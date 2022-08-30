@@ -1,6 +1,6 @@
 import React from 'react'
 import '../App.css'
-import movieimg from './movie-img.svg';
+import movieimg from '../assets/movie-img.svg';
 function NotFound() {
   return (
     <div className='no-matches'>

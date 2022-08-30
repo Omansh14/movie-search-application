@@ -5,7 +5,7 @@ import MovieComponent from "./components/MovieComponent";
 import MovieInfoComponent from "./components/MovieInfoComponent";
 import NotFound from "./components/NotFound";
 import './App.css';
-import logo from "./movie-icon.svg";
+import logo from "./assets/movie-icon.svg";
 import magnifier from './search-icon.svg';
 
 export const API_KEY = "6da9d44b";
