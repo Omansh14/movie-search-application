@@ -1,0 +1,15 @@
+.App {
+  text-align: center;
+}
+
+
+.no-matches{
+  margin-top: 23vh;
+  opacity: 0.7;
+}
+
+.message{
+  margin-top: 50px;
+}
+
+
