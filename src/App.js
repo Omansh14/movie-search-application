@@ -26,18 +26,26 @@ const Header = styled.div`
   justify-content: space-around;
   flex-direction: row;
   align-items: center;
-  padding: 5px;
-  font-size: 25px;
+  padding: 20px; 
+  font-size: 24px;
   font-weight: bold;
   box-shadow: 0 3px 6px 0 #555;
+
+  @media (max-width: 820px) {
+    flex-direction: column; 
+    text-align: center; 
+    padding: 15px; 
+    font-size: 20px;
+  }
 `;
+
 const SearchBox = styled.div`
   display: flex;
   flex-direction: row;
-  padding: 10px 10px;
+  padding: 5px; /* Adjust padding */
   border-radius: 6px;
-  margin-left: 20px;
-  width: 50%;
+  margin-left: 10px; /* Adjust margin */
+  width: 80%; /* Adjust width */
   background-color: white;
 `;
 const SearchIcon = styled.img`
@@ -54,16 +62,33 @@ const SearchInput = styled.input`
   font-size: 16px;
   font-weight: bold;
   border: none;
+  width: 100%;
   outline: none;
   margin-left: 15px;
 `;
 const MovieListContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  padding: 30px;
-  gap: 25px;
-  justify-content: space-evenly; ;
+display: grid;
+grid-template-columns: ${props =>
+  props.movieList.length ? '1fr 1fr 1fr 1fr' : '1fr'};
+padding: 25px 75px;
+grid-gap: 25ypx;
+grid-row-gap: 25px;
+place-items: center;
+
+@media (max-width: 1024px) {
+  grid-template-columns: ${props =>
+    props.movieList.length ? '1fr 1fr 1fr' : '1fr'};
+  padding: 25px;
+}
+@media (max-width: 820px) {
+  grid-template-columns: ${props =>
+    props.movieList.length ? '1fr 1fr' : '1fr'};
+  padding: 25px 40px;
+}
+@media (max-width: 415px) {
+  grid-template-columns: 1fr ;
+  padding: 25px;
+}
 `;
 
 
@@ -127,7 +152,7 @@ function App() {
           onMovieSelect={onMovieSelect}
         />
       )}
-      <MovieListContainer>
+      <MovieListContainer movieList={movieList}>
         {movieList?.length ? (
           movieList.map((movie, index) => (
             <MovieComponent

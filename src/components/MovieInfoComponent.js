@@ -9,6 +9,11 @@ const Container = styled.div`
   padding: 20px 30px;
   justify-content: center;
   border-bottom: 1px solid lightgray;
+
+  @media (max-width: 415px) {
+    flex-direction: column;
+    padding: 20px 25px;
+  }
 `;
 const CoverImage = styled.img`
   object-fit: cover;
@@ -46,15 +51,19 @@ const MovieInfo = styled.span`
   }
 `;
 const Close = styled.span`
+  display: flex;
+  justify-content: center;
   font-size: 16px;
   font-weight: 600;
-  color: black;
-  background: lightgray;
+  color: white;
+  background: red;
+  border: 1px solid white;
   height: fit-content;
   padding: 8px;
-  border-radius: 50%;
+  border-radius: 5px;
   cursor: pointer;
   opacity: 0.8;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 `;
 const MovieInfoComponent = (props) => {
   const [movieInfo, setMovieInfo] = useState();
@@ -65,6 +74,7 @@ const MovieInfoComponent = (props) => {
       `https://www.omdbapi.com/?i=${selectedMovie}&apikey=${API_KEY}`,
     ).then((response) => setMovieInfo(response.data));
   }, [selectedMovie]);
+  
   return (
     <Container>
       {movieInfo ? (
@@ -105,7 +115,7 @@ const MovieInfoComponent = (props) => {
               Plot: <span>{movieInfo?.Plot}</span>
             </MovieInfo>
           </InfoColumn>
-          <Close onClick={() => props.onMovieSelect()}>X</Close>
+          <Close onClick={() => props.onMovieSelect()}>Close</Close>
         </>
       ) : (
         "Loading..."
