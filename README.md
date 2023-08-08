@@ -1,5 +1,8 @@
 ### Hosted Link:
-https://omansh14.github.io/movie-search-application/
+https://omansh14.github.io/movie-search-application/ (Production Build is getting failed, will upload it soon)
+
+![image](https://github.com/Omansh14/movie-search-application/assets/103351069/4f74fb76-99a2-433d-a6bc-e95ec8e80269)
+
 
 ### APIs Used
 [The Open Movie Database APIs](http://www.omdbapi.com/)
