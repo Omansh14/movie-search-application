@@ -66,27 +66,6 @@ const Close = styled.span`
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 `;
 
-// const Buttons = styled.div`
-// @media (min-width: 415px) {
-//   position: absolute;
-//   right: 20px;
-// }
-// `
-// const AddToWishlist = styled.span`
-//   display: flex;
-//   justify-content: center;
-//   font-size: 16px;
-//   font-weight: 600;
-//   color: white;
-//   background: blue;
-//   border: 1px solid white;
-//   height: fit-content;
-//   padding: 8px;
-//   border-radius: 5px;
-//   cursor: pointer;
-//   opacity: 0.8;
-//   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-// `;
 const MovieInfoComponent = (props) => {
   const [movieInfo, setMovieInfo] = useState();
   const { selectedMovie } = props;
@@ -137,11 +116,7 @@ const MovieInfoComponent = (props) => {
               Plot: <span>{movieInfo?.Plot}</span>
             </MovieInfo>
           </InfoColumn>
-          {/* <Buttons> */}
           <Close onClick={() => props.onMovieSelect()}>Close</Close>
-          {/* <AddToWishlist>Add To Wishlist</AddToWishlist> */}
-          {/* </Buttons> */}
-
         </>
       ) : (
         "Loading..."
