@@ -1,5 +1,5 @@
 ### Hosted Link:
-https://omansh14.github.io/movie-search-application/
+https://os-movie-search-application.netlify.app/
 
 ### APIs Used
 [The Open Movie Database APIs](http://www.omdbapi.com/)
