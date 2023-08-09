@@ -4,9 +4,9 @@ import styled from "styled-components";
 import MovieComponent from "./components/MovieComponent";
 import MovieInfoComponent from "./components/MovieInfoComponent";
 import NotFound from "./components/NotFound";
-import './App.css';
+import "./App.css";
 import logo from "./assets/movie-icon.svg";
-import magnifier from './search-icon.svg';
+import magnifier from "./search-icon.svg";
 
 export const API_KEY = "6da9d44b";
 
@@ -26,15 +26,16 @@ const Header = styled.div`
   justify-content: space-around;
   flex-direction: row;
   align-items: center;
-  padding: 20px; 
+  padding: 20px;
   font-size: 24px;
   font-weight: bold;
   box-shadow: 0 3px 6px 0 #555;
+  gap: 10px;
 
   @media (max-width: 820px) {
-    flex-direction: column; 
-    text-align: center; 
-    padding: 15px; 
+    flex-direction: column;
+    text-align: center;
+    padding: 15px;
     font-size: 20px;
   }
 `;
@@ -57,6 +58,11 @@ const MovieImage = styled.img`
   height: 48px;
   margin: 15px;
 `;
+const StyledIcon = styled.span`
+  font-family: "Material Icons";
+  font-size: 35px;
+  margin-right: 8px;
+`;
 const SearchInput = styled.input`
   color: black;
   font-size: 16px;
@@ -67,30 +73,29 @@ const SearchInput = styled.input`
   margin-left: 15px;
 `;
 const MovieListContainer = styled.div`
-display: grid;
-grid-template-columns: ${props =>
-  props.movieList.length ? '1fr 1fr 1fr 1fr' : '1fr'};
-padding: 25px 75px;
-grid-gap: 25ypx;
-grid-row-gap: 25px;
-place-items: center;
+  display: grid;
+  grid-template-columns: ${(props) =>
+    props.movieList?.length ? "1fr 1fr 1fr 1fr" : "1fr"};
+  padding: 25px 75px;
+  grid-gap: 25ypx;
+  grid-row-gap: 25px;
+  place-items: center;
 
-@media (max-width: 1024px) {
-  grid-template-columns: ${props =>
-    props.movieList.length ? '1fr 1fr 1fr' : '1fr'};
-  padding: 25px;
-}
-@media (max-width: 820px) {
-  grid-template-columns: ${props =>
-    props.movieList.length ? '1fr 1fr' : '1fr'};
-  padding: 25px 40px;
-}
-@media (max-width: 415px) {
-  grid-template-columns: 1fr ;
-  padding: 25px;
-}
+  @media (max-width: 1024px) {
+    grid-template-columns: ${(props) =>
+      props.movieList?.length ? "1fr 1fr 1fr" : "1fr"};
+    padding: 25px;
+  }
+  @media (max-width: 820px) {
+    grid-template-columns: ${(props) =>
+      props.movieList?.length ? "1fr 1fr" : "1fr"};
+    padding: 25px 40px;
+  }
+  @media (max-width: 415px) {
+    grid-template-columns: 1fr;
+    padding: 25px;
+  }
 `;
-
 
 function App() {
   const [searchQuery, updateSearchQuery] = useState("");
@@ -99,10 +104,6 @@ function App() {
   const [selectedMovie, onMovieSelect] = useState();
 
   const [timeoutId, updateTimeoutId] = useState();
-
-  useEffect(() => {
-    fetchData("anime");
-  }, []);
 
   const fetchData = async (searchString) => {
     const response = await Axios.get(
@@ -114,8 +115,12 @@ function App() {
     if (!defaultMovieList.length) {
       setDefaultMovieList([...movieList]);
     }
-    console.log(defaultMovieList);
   };
+
+  useEffect(() => {
+    fetchData("anime");
+  // eslint-disable-next-line
+  }, []);
 
   const onTextChange = (e) => {
     onMovieSelect("");
@@ -133,17 +138,20 @@ function App() {
     <Container>
       <Header>
         <AppName>
-          <MovieImage src={logo}/>
+          <MovieImage src={logo} />
           MovieBase
         </AppName>
-        <SearchBox>
-          <SearchIcon src={magnifier} />
-          <SearchInput
-            placeholder="Search a Movie"
-            value={searchQuery}
-            onChange={onTextChange}
-          />
-        </SearchBox>
+          <div style={{width: '100%', display: 'flex', justifyContent: 'space-around', gap: '10px'}}>
+          <SearchBox>
+            <SearchIcon src={magnifier} />
+            <SearchInput
+              placeholder="Search a Movie"
+              value={searchQuery}
+              onChange={onTextChange}
+            />
+          </SearchBox>
+          <StyledIcon>favorite</StyledIcon>
+          </div>
       </Header>
 
       {selectedMovie && (
