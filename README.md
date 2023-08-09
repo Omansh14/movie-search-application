@@ -1,5 +1,5 @@
 ### Hosted Link:
-https://movie-search-application-os.netlify.app/
+[Movie Search Application](https://movie-search-application-os.netlify.app/)
 
 ### APIs Used
 [The Open Movie Database APIs](http://www.omdbapi.com/)
