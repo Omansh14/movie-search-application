@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Axios from "axios";
-import { API_KEY } from "../App";
+import { API_KEY } from "./App";
 import styled from "styled-components";
 
 const Container = styled.div`
