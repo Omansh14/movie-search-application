@@ -29,7 +29,6 @@ const App = () => {
   const [selectedMovie, onMovieSelect] = useState();
   const [debouncedVal, setDebouncedVal] = useState("");
   const dispatch = useDispatch();
-
   const movies = useSelector((state) => state.app?.movieList);
 
   useEffect(() => {

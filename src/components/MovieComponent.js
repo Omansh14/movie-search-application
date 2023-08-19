@@ -8,6 +8,11 @@ const MovieContainer = styled.div`
   width: 280px;
   box-shadow: 0 3px 10px 0 #aaa;
   cursor: pointer;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: lightgray;
+  }
 `;
 const CoverImage = styled.img`
   object-fit: cover;

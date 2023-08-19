@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import logo from "../assets/movie-icon.svg";
 import magnifier from "../search-icon.svg";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const AppName = styled.div`
   display: flex;
@@ -34,6 +34,7 @@ const NavBar = styled.div`
 const SearchBox = styled.div`
   display: flex;
   flex-direction: row;
+  align-items: center;
   padding: 5px; /* Adjust padding */
   border-radius: 6px;
   margin-left: 10px; /* Adjust margin */
@@ -53,7 +54,7 @@ const StyledIcon = styled.span`
   font-family: "Material Icons";
   font-size: 35px;
   margin-right: 8px;
-  color: white;
+  color: ${props => props.showSearchBox ? 'white' : 'blue'};
 `;
 const SearchInput = styled.input`
   color: black;
@@ -64,7 +65,10 @@ const SearchInput = styled.input`
   outline: none;
   margin-left: 15px;
 `;
+
 const Header = ({ searchQuery, onTextChange }) => {
+  const location = useLocation();
+  const showSearchBox = location.pathname !== "/wishlist";
   return (
     <NavBar>
       <Link to="/" style={{ textDecoration: "none" }}>
@@ -82,17 +86,29 @@ const Header = ({ searchQuery, onTextChange }) => {
           gap: "10px",
         }}
       >
-        <SearchBox>
-          <SearchIcon src={magnifier} />
-          <SearchInput
-            placeholder="Search a Movie"
-            value={searchQuery}
-            onChange={onTextChange}
-          />
-        </SearchBox>
+        {showSearchBox ? (
+          <SearchBox>
+            <SearchIcon src={magnifier} />
+            <SearchInput
+              placeholder="Search a Movie"
+              value={searchQuery}
+              onChange={onTextChange}
+            />
+          </SearchBox>
+         ) : <div style={{width: '80%'}}></div>}
+
         <Link to="/wishlist" style={{ textDecoration: "none" }}>
-          <div style={{display: 'flex', flexDirection: 'column', color: 'white', alignItems: 'center', fontSize:'15px', gap: '1'}}>
-            <StyledIcon>favorite</StyledIcon>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              color: "white",
+              alignItems: "center",
+              fontSize: "15px",
+              gap: "1",
+            }}
+          >
+            <StyledIcon showSearchBox={showSearchBox}>favorite</StyledIcon>
             Wishlist
           </div>
         </Link>
