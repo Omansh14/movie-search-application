@@ -1,8 +1,13 @@
 import React from "react";
 import styled from "styled-components";
+import { useSelector, useDispatch } from "react-redux";
+import { auth } from "../../src/firebase";
+import { signOut } from "firebase/auth";
+import { handleAuthData } from "../redux/action";
 import logo from "../assets/movie-icon.svg";
 import magnifier from "../search-icon.svg";
-import { Link, useLocation } from "react-router-dom";
+import userIcon from "../assets/person_icon.svg";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const AppName = styled.div`
   display: flex;
@@ -50,11 +55,19 @@ const MovieImage = styled.img`
   height: 48px;
   margin: 15px;
 `;
+
+const UserImage = styled.img`
+  width: 32px;
+  height: 32px;
+  margin-bottom: 5px;
+`;
+
 const StyledIcon = styled.span`
   font-family: "Material Icons";
-  font-size: 35px;
+  font-size: 30px;
   margin-right: 8px;
-  color: ${props => props.showSearchBox ? 'white' : 'blue'};
+  margin-bottom: 5px;
+  color: ${(props) => (props.showSearchBox ? "white" : "blue")};
 `;
 const SearchInput = styled.input`
   color: black;
@@ -68,7 +81,25 @@ const SearchInput = styled.input`
 
 const Header = ({ searchQuery, onTextChange }) => {
   const location = useLocation();
+  const userInfo = useSelector((state) => state.user.auth);
+  const userDisplayName = userInfo.displayName;
   const showSearchBox = location.pathname !== "/wishlist";
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const handleLogout = () => {
+    signOut(auth)
+      .then(() => {
+        dispatch(handleAuthData(false));
+        navigate("/login");
+        console.log("Signed out successfully");
+      })
+      .catch((error) => {
+        // An error happened.
+        console.log(error);
+      });
+  };
+
   return (
     <NavBar>
       <Link to="/" style={{ textDecoration: "none" }}>
@@ -95,7 +126,9 @@ const Header = ({ searchQuery, onTextChange }) => {
               onChange={onTextChange}
             />
           </SearchBox>
-         ) : <div style={{width: '80%'}}></div>}
+        ) : (
+          <div style={{ width: "80%" }}></div>
+        )}
 
         <Link to="/wishlist" style={{ textDecoration: "none" }}>
           <div
@@ -112,6 +145,20 @@ const Header = ({ searchQuery, onTextChange }) => {
             Wishlist
           </div>
         </Link>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            color: "white",
+            alignItems: "center",
+            fontSize: "15px",
+            gap: "1",
+            cursor: 'pointer'
+          }}
+        >
+          <UserImage src={userIcon} onClick={() => handleLogout()}/>
+          <div>{userDisplayName?.length > 20 ? userDisplayName.substring(0, 20) + '...' : userDisplayName}</div>
+        </div>
       </div>
     </NavBar>
   );

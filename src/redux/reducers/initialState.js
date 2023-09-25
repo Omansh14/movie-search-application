@@ -1,4 +1,7 @@
 const initialState = {
+    user: {
+        auth: {},
+    },
     app:{
         movieList: [],
         loadingState: 'UNINITIALIZED',

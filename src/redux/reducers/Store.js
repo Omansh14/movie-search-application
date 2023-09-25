@@ -3,8 +3,10 @@ import {composeWithDevTools} from 'redux-devtools-extension';
 import thunkMiddleWare from "redux-thunk"
 import appReducer from './appReducer';
 import wishListReducer from './wishListReducer';
+import  userReducer  from './userReducer';
 
 const reducer = combineReducers({
+    user: userReducer,
     app: appReducer,
     wishList: wishListReducer,
 });

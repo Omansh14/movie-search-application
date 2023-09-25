@@ -15,6 +15,13 @@ export const removeFromWishList = (data) => {
   };
 };
 
+export const handleAuthData = (data) => {
+  return {
+    type: 'ADD_AUTH_INFO',
+    payload: data,
+  }
+}
+
 export const fetchMovieData = (searchString) => {
   return (dispatch) => {
     dispatch({ type: "REQUEST_MOVIE_DATA" });
