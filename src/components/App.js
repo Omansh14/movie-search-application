@@ -34,7 +34,7 @@ const App = () => {
   const [debouncedVal, setDebouncedVal] = useState("");
   const dispatch = useDispatch();
   const movies = useSelector((state) => state.app?.movieList);
-  // const authentication = useSelector((state) => state.user.auth?.uid);
+  const authentication = useSelector((state) => state.user.auth?.uid);
 
   useEffect(() => {
     dispatch(fetchMovieData(debouncedVal));
@@ -65,26 +65,29 @@ const App = () => {
   const router = createBrowserRouter(
     createRoutesFromElements(
       <>
-          <Route
-            path="/"
-            element={
+        <Route
+          path="/"
+          element={
+            authentication ? (
               <Layout searchQuery={searchQuery} onTextChange={onTextChange} />
+            ) : (
+              <Login />
+            )
+          }
+        >
+          <Route
+            index
+            element={
+              <Home
+                selectedMovie={selectedMovie}
+                onMovieSelect={onMovieSelect}
+                movieList={movies}
+              />
             }
-          >
-            <Route
-              index
-              element={
-                <Home
-                  selectedMovie={selectedMovie}
-                  onMovieSelect={onMovieSelect}
-                  movieList={movies}
-                />
-              }
-            ></Route>
-            <Route path="/wishlist" element={<WishList />}></Route>
-          </Route> 
-         <Route path="/login" element={<Login />}></Route>
-        
+          ></Route>
+          <Route path="/wishlist" element={<WishList />}></Route>
+        </Route>
+        <Route path="/login" element={<Login/>}></Route>
         <Route index path="/signup" element={<SignUp />}></Route>
       </>
     )
@@ -98,5 +101,3 @@ const App = () => {
 };
 
 export default App;
-
-
