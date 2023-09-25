@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 import { auth } from "../../src/firebase";
@@ -60,6 +60,27 @@ const UserImage = styled.img`
   width: 32px;
   height: 32px;
   margin-bottom: 5px;
+  cursor: pointer;
+`;
+
+const Dropdown = styled.div`
+  position: absolute;
+  top: 65px;
+  right: 10px;
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  display: ${(props) => (props.isOpen ? "block" : "none")};
+`;
+
+const DropdownItem = styled.div`
+  padding: 10px;
+  cursor: pointer;
+  color: #000;
+  &:hover {
+    background-color: #f0f0f0;
+    border-radius: 5px;
+  }
 `;
 
 const StyledIcon = styled.span`
@@ -81,6 +102,7 @@ const SearchInput = styled.input`
 
 const Header = ({ searchQuery, onTextChange }) => {
   const location = useLocation();
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const userInfo = useSelector((state) => state.user.auth);
   const userDisplayName = userInfo.displayName;
   const showSearchBox = location.pathname !== "/wishlist";
@@ -91,8 +113,7 @@ const Header = ({ searchQuery, onTextChange }) => {
     signOut(auth)
       .then(() => {
         dispatch(handleAuthData(false));
-        navigate("/login");
-        console.log("Signed out successfully");
+        navigate("/login", { replace: true });
       })
       .catch((error) => {
         // An error happened.
@@ -115,6 +136,7 @@ const Header = ({ searchQuery, onTextChange }) => {
           display: "flex",
           justifyContent: "space-around",
           gap: "10px",
+          position: "relative",
         }}
       >
         {showSearchBox ? (
@@ -153,12 +175,24 @@ const Header = ({ searchQuery, onTextChange }) => {
             alignItems: "center",
             fontSize: "15px",
             gap: "1",
-            cursor: 'pointer'
+            cursor: "pointer",
+            position: "relative",
           }}
+          onClick={() => setIsDropdownOpen(!isDropdownOpen)}
         >
-          <UserImage src={userIcon} onClick={() => handleLogout()}/>
-          <div>{userDisplayName?.length > 20 ? userDisplayName.substring(0, 20) + '...' : userDisplayName}</div>
+          <UserImage
+            src={userIcon}
+          />
+          <div>
+            {userDisplayName?.length > 20
+              ? userDisplayName.substring(0, 20) + "..."
+              : userDisplayName}
+          </div>
+          <Dropdown isOpen={isDropdownOpen}>
+            <DropdownItem onClick={handleLogout}>Logout</DropdownItem>
+          </Dropdown>
         </div>
+        <div></div>
       </div>
     </NavBar>
   );

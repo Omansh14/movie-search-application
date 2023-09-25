@@ -69,7 +69,6 @@ const Button = styled.button`
 const Text = styled.p`
   font-size: 0.875rem;
   color: #000;
-  text-align: center;
 
   a {
     color: #2563eb;
@@ -77,10 +76,16 @@ const Text = styled.p`
   }
 `;
 
+const StyledError = styled.div`
+  color: red;
+  margin-top: 1rem;
+`;
+
 const Login = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
   const onLogin = (e) => {
     e.preventDefault();
@@ -89,12 +94,11 @@ const Login = () => {
         // Signed in
         const user = userCredential.user;
         navigate("/");
-        console.log(user);
+        setError(false);
       })
       .catch((error) => {
-        const errorCode = error.code;
         const errorMessage = error.message;
-        console.log(errorCode, errorMessage);
+        setError(`${errorMessage}`);
       });
   };
 
@@ -131,6 +135,7 @@ const Login = () => {
               Login
             </Button>
           </div>
+          {error && <StyledError>{error}</StyledError>}
         </Form>
         <Text>
           No account yet? <NavLink to="/signup">Sign up</NavLink>

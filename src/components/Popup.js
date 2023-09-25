@@ -6,23 +6,25 @@ const PopupContainer = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: #fff;
+  background-color: #000;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Darker shadow */
-  padding: 20px;
+  padding: 50px;
   z-index: 1000;
   text-align: center;
   border-radius: 5px;
 `;
 
-const Message = styled.p`
+const Message = styled.div`
   font-size: 18px;
   margin-bottom: 20px;
-  color: gray;
+  padding-right: 20px;
+  color: #fff;
 `;
 
 const ButtonContainer = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  width: full;
 `;
 
 const Button = styled.button`
@@ -36,13 +38,13 @@ const Button = styled.button`
   margin: 0 10px;
 `;
 
-const Popup = ({ onClose, onConfirm }) => {
+const Popup = ({ setShowPopup,  }) => {
   return (
     <PopupContainer>
       <Message>Do you want to logout?</Message>
       <ButtonContainer>
-        <Button onClick={onConfirm}>Yes</Button>
-        <Button onClick={onClose}>No</Button>
+        <Button>Yes</Button>
+        <Button onClick={setShowPopup(false)}>No</Button>
       </ButtonContainer>
     </PopupContainer>
   );

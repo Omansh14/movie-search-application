@@ -98,14 +98,11 @@ const Signup = () => {
   
       // Successful signup
       const user = userCredential.user;
-      console.log(user);
       setError(""); // Clear any previous errors
       navigate("/login");
     } catch (error) {
-      const errorCode = error.code;
       const errorMessage = error.message;
       setError(errorMessage);
-      console.error(errorCode, errorMessage);
     }
   };
 

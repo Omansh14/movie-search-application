@@ -37,18 +37,14 @@ const App = () => {
   const authentication = useSelector((state) => state.user.auth?.uid);
 
   useEffect(() => {
+    if(authentication)
     dispatch(fetchMovieData(debouncedVal));
     // eslint-disable-next-line
-  }, [debouncedVal]);
+  }, [debouncedVal, authentication]);
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
-      if (user) {
         dispatch(handleAuthData(user));
-        console.log(user);
-      } else {
-        console.log("user is logged out");
-      }
     });
     // eslint-disable-next-line
   }, []);
