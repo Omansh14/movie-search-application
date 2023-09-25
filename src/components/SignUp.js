@@ -97,7 +97,8 @@ const Signup = () => {
       });
   
       // Successful signup
-      const user = userCredential.user;
+
+      // const user = userCredential.user;
       setError(""); // Clear any previous errors
       navigate("/login");
     } catch (error) {
